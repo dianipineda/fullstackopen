@@ -88,9 +88,14 @@ const Button = ({ onClick, text }) => {
 };
 const Stat = ({ text, stat }) => {
   return (
-    <p>
-      {text} {stat}
-    </p>
+    <table>
+      <tbody>
+        <tr width="110" align="justify">
+          <td width="60">{text}</td>
+          <td width="50">{stat}</td>
+        </tr>
+      </tbody>
+    </table>
   );
 };
 const App2 = () => {
