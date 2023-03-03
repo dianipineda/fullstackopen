@@ -86,11 +86,11 @@ const Title = ({ text }) => <h1>{text}</h1>;
 const Button = ({ onClick, text }) => {
   return <button onClick={onClick}>{text}</button>;
 };
-const Stat = ({ text, totalCount }) => {
+const Stat = ({ text, stat }) => {
   return (
     <>
       <p>
-        {text} {totalCount}
+        {text} {stat}
       </p>
     </>
   );
@@ -100,6 +100,11 @@ const App2 = () => {
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
+
+  const sumTotal = good + neutral + bad;
+  const avg = ((good + neutral * 0 + bad * -1) / sumTotal).toFixed(2);
+  const porcPositive = Math.round((good / sumTotal) * 100);
+
   const counterGood = () => setGood(good + 1);
   const counterNeutral = () => setNeutral(neutral + 1);
   const counterBad = () => setBad(bad + 1);
@@ -110,9 +115,15 @@ const App2 = () => {
       <Button onClick={counterNeutral} text="neutral" />
       <Button onClick={counterBad} text="bad" />
       <Title text="statistics" />
-      <Stat text="good" totalCount={good} />
-      <Stat text="neutral" totalCount={neutral} />
-      <Stat text="bad" totalCount={bad} />
+      <Stat text="good" stat={good} />
+      <Stat text="neutral" stat={neutral} />
+      <Stat text="bad" stat={bad} />
+      <Stat text="all" stat={sumTotal} />
+      <Stat text="average" stat={Number.isNaN(Number(avg)) ? "0" : avg} />
+      <Stat
+        text="positive"
+        stat={Number.isNaN(porcPositive) ? "0%" : porcPositive + "%"}
+      />
     </>
   );
 };
