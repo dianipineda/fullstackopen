@@ -88,11 +88,9 @@ const Button = ({ onClick, text }) => {
 };
 const Stat = ({ text, stat }) => {
   return (
-    <>
-      <p>
-        {text} {stat}
-      </p>
-    </>
+    <p>
+      {text} {stat}
+    </p>
   );
 };
 const App2 = () => {
@@ -108,6 +106,19 @@ const App2 = () => {
   const counterGood = () => setGood(good + 1);
   const counterNeutral = () => setNeutral(neutral + 1);
   const counterBad = () => setBad(bad + 1);
+
+  if (sumTotal === 0) {
+    return (
+      <>
+        <Title text="give feedback" />
+        <Button onClick={counterGood} text="good" />
+        <Button onClick={counterNeutral} text="neutral" />
+        <Button onClick={counterBad} text="bad" />
+        <Title text="statistics" />
+        <p>No feedbach given</p>
+      </>
+    );
+  }
   return (
     <>
       <Title text="give feedback" />
