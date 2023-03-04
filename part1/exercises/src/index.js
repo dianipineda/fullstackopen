@@ -144,20 +144,60 @@ const App2 = () => {
   );
 };
 
-//Exercises part1 d 1.12 - 1.
+//Exercises part1 d 1.12 - 1.14
+const Title1 = ({ title }) => {
+  return <h1>{title}</h1>;
+};
+const Button2 = ({ onClick, text }) => {
+  return <button onClick={onClick}>{text}</button>;
+};
+
+const Vote = ({ votes }) => {
+  return <div>Has {votes} votes</div>;
+};
 const App3 = () => {
   const [selected, setSelected] = useState(0);
+
+  const arrIndexVotes = [];
+  const bucleIndexAnecdotes = () =>
+    anecdotes.forEach((element, index) => {
+      arrIndexVotes.push([index, 0]);
+    });
+  bucleIndexAnecdotes();
+  const obj = Object.fromEntries(arrIndexVotes);
+  const copy = { ...obj };
+
+  const [votes, setVotes] = useState(copy);
+
+  const fnVote = (selected) => {
+    setVotes((prev) => ({ ...prev, [selected]: prev[selected] + 1 }));
+  };
+
+  let mayor = [0, 0];
+  for (let i = 0; i < Object.entries(votes).length; i++) {
+    const element = Object.entries(votes)[i];
+    if (element[1] > mayor[1]) {
+      mayor = element;
+    }
+  }
+  console.log("-------- mayor", mayor);
+  console.log("-------- votes", votes);
+
   const random = () =>
     setSelected(Math.floor(Math.random() * anecdotes.length));
 
   return (
     <>
+      <Title1 title="Anecdote of the day" />
       <div>{anecdotes[selected]}</div>
-      <button onClick={random}>next anecdote</button>
+      <Vote votes={votes[selected]} />
+      <Button2 onClick={() => fnVote(selected)} text="vote" />
+      <Button2 onClick={random} text="next anecdote" />
+      <Title1 title="Anecdote with most votes" />
+      <div>{anecdotes[mayor[0]]}</div>
     </>
   );
 };
-
 const anecdotes = [
   "If it hurts, do it more often",
   "Adding manpower to a late software project makes it later!",
