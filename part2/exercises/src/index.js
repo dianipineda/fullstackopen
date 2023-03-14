@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import App from "./components/App";
 
-const App = () => {
+/*const App = () => {
   const course = [
     {
       name: "Half Stack application development",
@@ -102,6 +103,6 @@ const Total = ({ parts }) => {
       </b>
     </div>
   );
-};
+};*/
 
 ReactDOM.render(<App />, document.getElementById("root"));
